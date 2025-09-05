@@ -1,0 +1,143 @@
+.navbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.navbar-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+  padding: 0 var(--space-6);
+}
+
+.navbar-brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  text-decoration: none;
+}
+
+.navbar-brand:hover {
+  color: var(--primary);
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-nav a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  text-decoration: none;
+  padding: var(--space-2) 0;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.navbar-nav a:hover {
+  color: var(--gray-900);
+}
+
+.navbar-nav a.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+/* Mobile menu */
+.navbar-mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--gray-600);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: var(--space-2);
+  border-radius: var(--radius);
+  transition: all 0.15s ease;
+}
+
+.navbar-mobile-toggle:hover {
+  color: var(--gray-900);
+  background-color: var(--gray-100);
+}
+
+.navbar-mobile-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  box-shadow: var(--shadow);
+  padding: var(--space-4) var(--space-6);
+}
+
+.navbar-mobile-menu.active {
+  display: block;
+}
+
+.navbar-mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-mobile-nav a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  text-decoration: none;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--gray-100);
+  transition: color 0.15s ease;
+}
+
+.navbar-mobile-nav a:hover {
+  color: var(--gray-900);
+}
+
+.navbar-mobile-nav a.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .navbar-content {
+    padding: 0 var(--space-4);
+  }
+  
+  .navbar-nav {
+    display: none;
+  }
+  
+  .navbar-mobile-toggle {
+    display: block;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar-content {
+    padding: 0 var(--space-3);
+  }
+  
+  .navbar-mobile-menu {
+    padding: var(--space-4) var(--space-3);
+  }
+}
