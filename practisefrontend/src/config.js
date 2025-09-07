@@ -1,6 +1,6 @@
 // config.js
 const config = {
-  apiBaseUrl: "http://localhost:2052/practisebackend"
+  apiBaseUrl: "http://localhost:2052/myspringbootproject"
 };
 
 export default config;
