@@ -6,38 +6,59 @@ const EmployeePage = () => {
   const [employees, setEmployees] = useState([]);
   const [editData, setEditData] = useState(null);
 
+  // Load all employees
   const loadEmployees = async () => {
-    const response = await fetch(config.apiBaseUrl);
-    const data = await response.json();
-    setEmployees(data);
+    try {
+      const response = await fetch(`${config.apiBaseUrl}/employees`);
+      if (!response.ok) throw new Error("Failed to fetch employees");
+      const data = await response.json();
+      setEmployees(data);
+    } catch (error) {
+      console.error("Error loading employees:", error);
+    }
   };
 
   useEffect(() => {
     loadEmployees();
   }, []);
 
+  // Add employee
   const handleAdd = async (employee) => {
-    await fetch(config.apiBaseUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(employee),
-    });
-    loadEmployees();
+    try {
+      await fetch(`${config.apiBaseUrl}/employees`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(employee),
+      });
+      loadEmployees();
+    } catch (error) {
+      console.error("Error adding employee:", error);
+    }
   };
 
+  // Update employee
   const handleUpdate = async (employee) => {
-    await fetch(`${config.apiBaseUrl}/${employee.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(employee),
-    });
-    setEditData(null);
-    loadEmployees();
+    try {
+      await fetch(`${config.apiBaseUrl}/employees/${employee.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(employee),
+      });
+      setEditData(null);
+      loadEmployees();
+    } catch (error) {
+      console.error("Error updating employee:", error);
+    }
   };
 
+  // Delete employee
   const handleDelete = async (id) => {
-    await fetch(`${config.apiBaseUrl}/${id}`, { method: "DELETE" });
-    loadEmployees();
+    try {
+      await fetch(`${config.apiBaseUrl}/employees/${id}`, { method: "DELETE" });
+      loadEmployees();
+    } catch (error) {
+      console.error("Error deleting employee:", error);
+    }
   };
 
   return (
@@ -61,19 +82,27 @@ const EmployeePage = () => {
           </tr>
         </thead>
         <tbody>
-          {employees.map((emp) => (
-            <tr key={emp.id}>
-              <td>{emp.id}</td>
-              <td>{emp.name}</td>
-              <td>{emp.email}</td>
-              <td>{emp.department}</td>
-              <td>{emp.salary}</td>
-              <td>
-                <button onClick={() => setEditData(emp)}>Edit</button>
-                <button onClick={() => handleDelete(emp.id)}>Delete</button>
+          {employees.length > 0 ? (
+            employees.map((emp) => (
+              <tr key={emp.id}>
+                <td>{emp.id}</td>
+                <td>{emp.name}</td>
+                <td>{emp.email}</td>
+                <td>{emp.department}</td>
+                <td>{emp.salary}</td>
+                <td>
+                  <button onClick={() => setEditData(emp)}>Edit</button>
+                  <button onClick={() => handleDelete(emp.id)}>Delete</button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="6" style={{ textAlign: "center" }}>
+                No employees found
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
